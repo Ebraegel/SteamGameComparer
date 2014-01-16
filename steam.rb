@@ -2,6 +2,9 @@ require 'open-uri'
 require 'json'
 require_relative './configuration.rb'
 
+#Currently, configuration.rb just holds the API key.  Sample:
+# API_KEY = "CNSEF8434NCDbunchacharactersSVLSNR"
+
 
 gamelist = open('http://api.steampowered.com/ISteamApps/GetAppList/v0001/')
 all_games_json = JSON.parse(gamelist.read)
