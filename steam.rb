@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'json'
-require_relative './configuration.rb'
+require './configuration.rb' rescue LoadError
 
 #Currently, configuration.rb just holds the API key.  Sample:
 # API_KEY = "CNSEF8434NCDbunchacharactersSVLSNR"
