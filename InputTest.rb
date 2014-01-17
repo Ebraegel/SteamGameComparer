@@ -1,4 +1,7 @@
-require './steam.rb'
+ #!/usr/bin/env ruby
+
+require_relative 'steam.rb' rescue LoadError
+require_relative 'configuration.rb' rescue LoadError
 
 loop do
   puts "Enter a SteamID.  Or, enter \"compare\" to run the comparison!"
@@ -10,4 +13,8 @@ loop do
   end
 end
 
-puts Person.all
+puts "Hang on a moment, working on it..."
+Person.get_all_games
+Person.collect_games
+Person.get_master_game_list
+Person.compare_all_games
