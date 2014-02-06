@@ -57,7 +57,6 @@ class Person
     end
   end
 
-++
   def self.all_games
     @@all_games
   end
