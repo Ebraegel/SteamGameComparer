@@ -26,23 +26,27 @@ class Person
     self.class.count += 1
   end
 
-  def get_games #Pulls down owned games from the Steam API and makes an array of game ID numbers
+# Pulls down a person's owned games from the Steam API and makes an array of game ID numbers
+  def get_games 
     conn = open("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{API_KEY}&steamid=#{@steamid}&format=json")
     json_hash = JSON.parse(conn.read)
     games_hash = json_hash["response"]["games"]
     @games = games_hash.map { |hash| hash["appid"] }
   end
 
+# Runs the get_games method on each person to populate their games list
   def self.get_all_games
   ObjectSpace.each_object(self).each { |object| object.get_games}
   end
 
+# Takes each person's games array and crams them into the @@all_owned_games array
   def self.collect_games
     ObjectSpace.each_object(self).each { |person|
       @@all_owned_games << person.games
     }
   end
 
+# Get all the games on steam and populate the @@all_games hash with appids => game titles.
   def self.get_master_game_list
     gamelist = open('http://api.steampowered.com/ISteamApps/GetAppList/v0001/')
     all_games_json = JSON.parse(gamelist.read)
@@ -53,6 +57,7 @@ class Person
     end
   end
 
+++
   def self.all_games
     @@all_games
   end
@@ -62,9 +67,12 @@ class Person
   end
 
   def self.compare_all_games
+      # Count how many times each appid appears in @@all_owned_games
     count_appids = Hash[Person.all_owned_games.flatten.group_by { |x| x }.map { |k,v| [k,v.count] } ]
+      # Keep only the appids that are owned by everyone
     common_appids = count_appids.keep_if { |k, v | v == Person.count}
     puts "OK, here's what the #{self.count} of you have in common:"
+      # Match up those appids with the titles from @@all_games
     puts common_appids.map {|k, v| Person.all_games[k] }
   end
 
