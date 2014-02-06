@@ -48,7 +48,9 @@ class Person
     all_games_json = JSON.parse(gamelist.read)
     all_games = all_games_json["applist"]["apps"]["app"]
     all_array_of_hash = all_games.map { |pair| Hash[pair["appid"], pair["name"]] }
-    @@all_games = all_array_of_hash.reduce({}, :merge)
+    all_array_of_hash.each do |pair|
+      pair.each_pair {|key, value| @@all_games[key.to_i] = value }
+    end
   end
 
   def self.all_games
