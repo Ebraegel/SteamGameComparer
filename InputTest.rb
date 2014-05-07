@@ -1,4 +1,4 @@
- #!/usr/bin/env ruby
+#!/usr/bin/env ruby
 
 require_relative 'steam.rb' rescue LoadError
 require_relative 'configuration.rb' rescue LoadError
