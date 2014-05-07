@@ -1,6 +1,16 @@
+#!/usr/bin/env ruby
+
 require 'rubygems'
 require 'sinatra'
 require './steam.rb'
+
+get '/' do
+	erb :index
+end
+
+get '/index' do
+	erb :index
+end
 
 get '/form' do
   erb :form
