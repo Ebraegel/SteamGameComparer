@@ -36,7 +36,7 @@ class Person
 
 # Runs the get_games method on each person to populate their games list
   def self.get_all_games
-  ObjectSpace.each_object(self).each { |object| object.get_games}
+  ObjectSpace.each_object(self).to_a.each { |object| object.get_games}
   end
 
 # Takes each person's games array and crams them into the @@all_owned_games array
