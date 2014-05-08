@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'json'
 
-require './configuration.rb' rescue LoadError
+require_relative 'configuration.rb' rescue LoadError
 
 #Currently, configuration.rb just holds the API key.  Sample:
 # API_KEY = "CNSEF8434NCDbunchacharactersSVLSNR"
@@ -65,14 +65,15 @@ class Person
     @@all_owned_games
   end
 
-  def self.compare_all_games
+  def self.compare_all_games #returns an array of game names
       # Count how many times each appid appears in @@all_owned_games
     count_appids = Hash[Person.all_owned_games.flatten.group_by { |x| x }.map { |k,v| [k,v.count] } ]
       # Keep only the appids that are owned by everyone
     common_appids = count_appids.keep_if { |k, v | v == Person.count}
     puts "OK, here's what the #{self.count} of you have in common:"
       # Match up those appids with the titles from @@all_games
-    puts common_appids.map {|k, v| Person.all_games[k] }
+    games = common_appids.map {|k, v| Person.all_games[k] }
+    games.flatten.sort
   end
 
 end

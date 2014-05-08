@@ -17,4 +17,4 @@ puts "Hang on a moment, working on it..."
 Person.get_all_games
 Person.collect_games
 Person.get_master_game_list
-Person.compare_all_games
+puts Person.compare_all_games

@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'sinatra'
-require './steam.rb'
+require_relative 'steam.rb'
 
 get '/' do
 	erb :index
@@ -24,5 +24,6 @@ post '/form' do
   Person.get_all_games
   Person.collect_games
   Person.get_master_game_list
-  Person.compare_all_games
+  @game_list = Person.compare_all_games
+  erb :games
 end

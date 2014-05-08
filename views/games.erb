@@ -1,0 +1,7 @@
+<h3> Here's what the <%= Person.count %> of you have in common:</h3>
+
+<ul>
+	<% @game_list.each do |game| %>
+		<li><%= game %></li>
+	<% end %>
+</ul>
